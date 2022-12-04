@@ -5,7 +5,6 @@ import com.example.employee.record.EmployeeRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,7 +50,7 @@ public class EmployeeService {
         double avg = employees.values().stream()
                 .mapToInt(Employee::getSalary)
                 .average()
-                .orElseThrow(()-> new RuntimeException("Employee not found"));
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
         return employees.values().stream()
                 .filter(s -> s.getSalary() > avg)
                 .collect(Collectors.toList());
