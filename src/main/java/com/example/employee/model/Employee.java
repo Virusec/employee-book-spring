@@ -1,5 +1,11 @@
 package com.example.employee.model;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Objects;
+
 public class Employee {
     private final String firstName;
     private final String lastName;
@@ -9,8 +15,16 @@ public class Employee {
     private static int counter;
 
     public Employee(String firstName, String lastName, int department, int salary) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        if (Objects.equals(firstName, StringUtils.capitalize(firstName))) {
+            this.firstName = firstName;
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (Objects.equals(lastName, StringUtils.capitalize(lastName))) {
+            this.lastName = lastName;
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
         this.department = department;
         this.salary = salary;
         this.id = counter++;
